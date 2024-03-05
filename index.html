@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Guessing Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background:#01011c;
+  }
+  .container {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 20px;
+    height: 50%;
+    width: 50%;
+    color: orange;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Number Guessing Game</h1>
+  <p>Guess a number between 1 and 10:</p>
+  <input type="number" id="guessInput" min="1" max="10">
+  <button onclick="checkGuess()">Guess</button>
+  <p id="message"> you are here!!</p>
+</div>
+<script>
+  const randomNumber = Math.floor(Math.random() * 10) + 1;
+  let attempts = 0;
+  let min=1;
+  let max=10;
+
+  function checkGuess() {
+    const guess = parseInt(document.getElementById('guessInput').value);
+    if (isNaN(guess) || guess < min || guess > max) {
+      setMessage(`Please enter a valid number between ${min} and ${max}.`);
+      return;
+    }
+
+    attempts++;
+    if (guess === randomNumber) {
+      setMessage(`Congratulations! You guessed the number ${randomNumber} correctly in ${attempts} attempts.`);
+      document.querySelector('.container').style.backgroundColor="#004d00";
+      document.querySelector('.container').style.color="#05ecf9";
+    } else if (guess < randomNumber) {
+      setMessage('Try a higher number.');
+      document.querySelector('.container').style.backgroundColor="#441c63";
+    } else {
+      setMessage('Try a lower number.');
+      document.querySelector('.container').style.backgroundColor="#044343";
+    }
+  }
+
+  function setMessage(msg) {
+    document.getElementById('message').textContent = msg;
+  }
+</script>
+</body>
+</html>
